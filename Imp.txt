@@ -1,0 +1,1040 @@
+1.	a) Write a program to implement addition of two numbers
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/number1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter First Number"/>
+
+    <EditText
+        android:id="@+id/number2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Second Number"/>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Addition"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result : "
+        android:textSize="22sp"/>
+
+</LinearLayout>
+
+
+
+package com.example.addbysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val number1=findViewById<EditText>(R.id.number1)
+        val number2=findViewById<EditText>(R.id.number2)
+        val btn=findViewById<Button>(R.id.btn)
+        val result=findViewById<TextView>(R.id.result)
+
+        btn.setOnClickListener {
+            val num1 = number1.text.toString().toIntOrNull()
+            val num2 = number2.text.toString().toIntOrNull()
+
+            if (num1 != null && num2 != null) {
+                val res = num1 + num2
+                result.text = "Result : $res"
+            } else {
+                result.text = "Enter a valid number"
+            }
+        }
+    }
+}
+
+
+b) Develop an activity to generate random numbers
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Random Numbers"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate"/>
+
+</LinearLayout>
+
+package com.example.randombysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import kotlin.random.Random
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val result=findViewById<TextView>(R.id.result)
+        val btn=findViewById<Button>(R.id.btn)
+
+        btn.setOnClickListener {
+            val res=Random.nextInt(1,1000)
+            result.text="Random Number : $res"
+        }
+
+    }
+}
+
+
+2.	a) Develop a simple list view to select an item from list
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+
+
+package com.example.listbysudu
+
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val list=findViewById<ListView>(R.id.list)
+
+        val data= arrayOf("Item 1","Item 2","Item 3",
+                          "Item 4","Item 5","Item 6",
+                          "Item 7","Item 8","Item 9")
+
+        val adapter= ArrayAdapter
+			(this,android.R.layout.simple_list_item_1,data)
+
+        list.adapter=adapter
+
+        list.setOnItemClickListener{parent,view,position,id->
+            val selected=data[position]
+            Toast.makeText(this,"You Selected : $selected", 
+						Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+
+
+b) Develop an activity to edit and save text to display
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter text"/>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result : "
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
+package com.example.editandsavebysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val edit=findViewById<EditText>(R.id.edit)
+        val btn=findViewById<Button>(R.id.btn)
+        val result=findViewById<TextView>(R.id.result)
+
+        btn.setOnClickListener {
+            val res=edit.text.toString()
+            result.text=res
+        }
+    }
+}
+
+3.	a) Develop an activity using radio button to display selected option
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <RadioButton
+            android:id="@+id/btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Option 1"/>
+
+        <RadioButton
+            android:id="@+id/btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Option 2"/>
+
+        <RadioButton
+            android:id="@+id/btn3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Option 3"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View"/>
+
+</LinearLayout>
+
+
+
+package com.example.radiobysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val group=findViewById<RadioGroup>(R.id.radioGroup)
+        val btn=findViewById<Button>(R.id.btn)
+
+        btn.setOnClickListener {
+            val selectedID=group.checkedRadioButtonId
+            if(selectedID!=-1)
+            {
+                val selectedRadioButton=findViewById
+					<RadioButton>(selectedID)
+                Toast.makeText(this,"You Selected : 
+					${selectedRadioButton.text}",
+						Toast.LENGTH_SHORT).show()
+            }
+            else{
+                Toast.makeText(this,"Please select an option",
+						Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
+
+
+b) Develop an activity using Toggle switch to display on/off status
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <Switch
+        android:id="@+id/toggleSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Status : OFF"
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
+package com.example.switchbysudu
+
+import android.os.Bundle
+import android.widget.Switch
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val toggleSwitch=findViewById<Switch>(R.id.toggleSwitch)
+        val result=findViewById<TextView>(R.id.text)
+
+        toggleSwitch.setOnCheckedChangeListener{_,isChecked->
+
+            if(isChecked)
+            {
+                result.text="Status : ON"
+            }
+            else{
+                result.text="Status : OFF"
+            }
+        }
+    }
+}
+
+4.	a) Develop an activity to display dialog window
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Dialog"
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
+package com.example.dailogbysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val btn=findViewById<Button>(R.id.btn)
+
+        btn.setOnClickListener {
+            showAlertDialog()
+        }
+    }
+    fun showAlertDialog()
+    {
+        val builder=AlertDialog.Builder(this)
+
+        builder.setTitle("Confirmation")
+        builder.setMessage("Are you sure you want to proceed?")
+
+        builder.setPositiveButton("Yes"){dialog,which->
+            Toast.makeText(this,"You clicked Yes",
+					Toast.LENGTH_SHORT).show()
+        }
+
+        builder.setNegativeButton("No"){dialog,which->
+            Toast.makeText(this,"You clicked No",
+					Toast.LENGTH_SHORT).show()
+        }
+        val dialog=builder.create()
+        dialog.show()
+    }
+}
+
+b) Write a program to check network connection of the device
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Checking Network"
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
+package com.example.networkbysudu
+
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Bundle
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val result=findViewById<TextView>(R.id.result)
+        if(isNetworkAvailable())
+        {
+            result.text="Network is Available"
+        }
+        else{
+            result.text="No Network Available"
+        }
+    }
+    fun isNetworkAvailable():Boolean{
+        val connectivityManager=getSystemService
+		(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network=connectivityManager.activeNetwork
+        val networkCapabilities=
+		connectivityManager.getNetworkCapabilities(network)
+
+        return networkCapabilities!=null && 
+				networkCapabilities.hasCapability
+			(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+    }
+}
+
+5.	Develop an activity using timepicker to select and display time
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Time"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time : "
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
+
+package com.example.timepickerbysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import android.widget.TimePicker
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val time=findViewById<TimePicker>(R.id.timePicker)
+        val btn=findViewById<Button>(R.id.btn)
+        val result=findViewById<TextView>(R.id.result)
+
+        btn.setOnClickListener {
+            val hour=time.hour
+            val minute=time.minute
+
+            val formattedTime=String.format("%02d : %02d",
+							hour,minute)
+
+            result.text="Selected Time : $formattedTime"
+        }
+    }
+}
+
+
+
+6.	Develop an activity to display current time in digital clock format
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00 : 00 : 00"
+        android:textSize="30sp"/>
+
+</LinearLayout>
+
+
+package com.example.digitalclockbysudu
+
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var result:TextView
+    private val handler= Handler(Looper.getMainLooper())
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        result=findViewById<TextView>(R.id.result)
+        updateClock()
+    }
+    private fun updateClock()
+    {
+        handler.post(object:Runnable{
+            override fun run() {
+                val curTime=Calendar.getInstance().time
+                val formatter=SimpleDateFormat("hh:mm:ss a", 
+						Locale.getDefault())
+                val formattedTime=formatter.format(curTime)
+
+                result.text=formattedTime
+                handler.postDelayed(this,1000)
+            }
+        })
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacksAndMessages(null)
+    }
+}
+
+7.	Develop an activity to validate user using username and password
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter username"/>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter password"/>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log In "/>
+
+     <TextView
+    	 android:id="@+id/result"
+   	 android:layout_width="match_parent"
+    	 android:layout_height="wrap_content"
+    	 android:text=" "
+    	 android:textSize="25sp"/>
+
+</LinearLayout>
+package com.example.userandpassbysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val editText1=findViewById<EditText>(R.id.username)
+        val editText2=findViewById<EditText>(R.id.password)
+        val btn=findViewById<Button>(R.id.btn)
+        val result=findViewById<TextView>(R.id.result)
+
+        val user="admin"
+        val pass="12345"
+
+        btn.setOnClickListener {
+            val username=editText1.text.toString()
+            val password=editText2.text.toString()
+
+            if(username==user && password==pass)
+            {
+                result.text="Login Successfull"
+            }
+            else{
+                result.text="Invalid username and password"
+            }
+        }
+    }
+}
+
+8.	Develop an activity to display counter using increment, decrement and reset button
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/increBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Increment"/>
+
+    <Button
+        android:id="@+id/decreBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Decrement"/>
+
+    <Button
+        android:id="@+id/resetBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset"/>
+
+</LinearLayout>
+
+package com.example.increanddecrebysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    private var counter=0
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val incre=findViewById<Button>(R.id.increBtn)
+        val decre=findViewById<Button>(R.id.decreBtn)
+        val reset=findViewById<Button>(R.id.resetBtn)
+        val result=findViewById<TextView>(R.id.result)
+
+        fun updateCounter(){
+            result.text=counter.toString()
+        }
+
+        incre.setOnClickListener {
+            counter++
+            updateCounter()
+        }
+
+        decre.setOnClickListener {
+            if(counter>0) counter--
+              updateCounter()
+        }
+        reset.setOnClickListener {
+            counter=0
+            updateCounter()
+        }
+        updateCounter()
+    }
+}
+
+9.	Develop an application to implement simple calculator
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/num1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter First Number"/>
+
+    <EditText
+        android:id="@+id/num2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Second Number"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"/>
+
+        <Button
+            android:id="@+id/sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUB"/>
+
+        <Button
+            android:id="@+id/mul"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MUL"/>
+
+        <Button
+            android:id="@+id/div"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DIV"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result : "
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
+package com.example.calcbysudu
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import org.w3c.dom.Text
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val num1=findViewById<EditText>(R.id.num1)
+        val num2=findViewById<EditText>(R.id.num2)
+
+        val add=findViewById<Button>(R.id.add)
+        val sub=findViewById<Button>(R.id.sub)
+        val mul=findViewById<Button>(R.id.mul)
+        val div=findViewById<Button>(R.id.div)
+
+        val reset=findViewById<Button>(R.id.reset)
+        val result=findViewById<TextView>(R.id.result)
+
+        reset.setOnClickListener {
+            num1.text.clear()
+            num2.text.clear()
+            result.text="Result : "
+        }
+
+        add.setOnClickListener {
+            calculate(num1,num2,result){a,b->a+b}
+        }
+        sub.setOnClickListener {
+            calculate(num1,num2,result){a,b->a-b}
+        }
+        mul.setOnClickListener {
+            calculate(num1,num2,result){a,b->a*b}
+        }
+        div.setOnClickListener {
+            calculate(num1,num2,result){a,b->if(b!=0.0)a/b else 
+								null}
+        }
+    }
+    fun calculate(num1Field:EditText,
+                  num2Field: EditText,
+                  result:TextView,
+                  operation:(Double,Double)->Double?)
+    {
+            val num1=num1Field.text.toString().toDoubleOrNull()
+            val num2=num2Field.text.toString().toDoubleOrNull()
+
+        if(num1!=null && num2!=null)
+        {
+            val res=operation(num1,num2)
+            result.text=if(res !=null)"Result : $res" else 
+						"Error : Division By Zero"
+        }
+        else
+        {
+            result.text="Enter valid number"
+        }
+    }
+}
+
+10.	Develop a phone dialer activity with call and save options.
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter phone number" />
+
+    <Button
+        android:id="@+id/call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Call"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:textSize="20sp"/>
+
+</LinearLayout>
+
+package com.example.phonebysudu
+
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val phone=findViewById<EditText>(R.id.text)
+        val call=findViewById<Button>(R.id.call)
+        val save=findViewById<Button>(R.id.save)
+
+        call.setOnClickListener {
+            val phoneNum=phone.text.toString().trim()
+            if(phoneNum.isNotEmpty())
+            {
+                val dialIntent=Intent(Intent.ACTION_DIAL,
+					 Uri.parse("tel:$phoneNum"))
+                startActivity(dialIntent)
+            }
+            else{
+                Toast.makeText(this,"Please enter a phone number",
+						Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        save.setOnClickListener {
+            val phoneNum=phone.text.toString().trim()
+            if(phoneNum.isNotEmpty())
+            {
+                Toast.makeText(this,"Phone number saved : 
+				$phoneNum",Toast.LENGTH_SHORT).show()
+                phone.text.clear()
+            }
+            else{
+                Toast.makeText(this,"Please enter a phone number",
+						Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}
+
